@@ -105,6 +105,14 @@ class Hero:
                 print (f'{self.name} has won!')
                 return    
 
+class Weapon (Ability):
+    def attack (self):
+        """  This method returns a random value
+        between one half to the full attack power of the weapon.
+        """
+        return randint((self.max_damage/2), self.max_damage)
+
+
 if __name__ == "__main__":
     #here we are testing out a fight between Wonder Woman and Dumbledore
     hero1 = Hero ("Wonder Woman")
