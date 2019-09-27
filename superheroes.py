@@ -35,6 +35,10 @@ class Hero:
         self.deaths = 0
         self.kills = 0
 
+    def add_weapon (self, weapon):
+        '''Add weapon to self.abilities'''
+        self.abilities.append(weapon)
+
     def add_ability (self, ability):
         ''' Add ability to abilities list '''
         #adding an ability to the preexsisting list of abilities
@@ -97,6 +101,7 @@ class Hero:
             else: #if we lose (are no longer alive), a message prints out 
                 #that the opponent has won
                 print (f'{opponent.name} has won!')
+                opponent.add_kill(1)
                 self.add_deaths(1)
                 return
 
@@ -107,6 +112,7 @@ class Hero:
                 #out that we have won
                 print (f'{self.name} has won!')
                 self.add_kill(1)
+                opponent.add_deaths(1)
                 return    
 
     def add_kill (self, num_kills):
@@ -169,6 +175,49 @@ class Team:
     def view_all_heroes (self):
         for hero in self.heroes:
             print (hero.name)
+
+class Arena:
+    def __init__ (self):
+        '''Instantiate properties
+            team_one: None
+            team_two: None
+        '''
+        self.team1 = Team ("Team 1")
+        self.team2 = Team ("Team 2")
+
+    def create_ability (self):
+        '''Prompt for Ability information.
+            return Ability with values from user Input
+        '''
+        new_ability = input ("Create a new ability: ")
+        ability_damage = input ("What is this ability's max damage: ")
+        ability_max_damage = int(ability_damage)
+        return Ability (new_ability, ability_max_damage)
+
+    def create_weapon (self):
+        '''Prompt user for Weapon information
+            return Weapon with values from user input.
+        '''
+        new_weapon = input ("Create a new weapon: ")
+        weapon_damage = input ("What is this weapon's max damage: ")
+        weapon_max_damage = int (weapon_damage)
+        return Weapon (new_weapon, weapon_max_damage)
+
+    def create_armor (self):
+        '''Prompt user for Armor information
+          return Armor with values from user input.
+        '''
+        new_armor = input ("Create a new armor: ")
+        armor_defend = input ("How much does this armor defend: ")
+        armor_max_defend = int (armor_defend)
+        return Armor (new_armor, armor_max_defend)
+
+    def create_hero (self):
+        '''Prompt user for Hero information
+          return Hero with values from user input.
+        '''
+        new_hero = input ("Create a new hero: ")
+        pass
 
 if __name__ == "__main__":
     #here we are testing out a fight between Wonder Woman and Dumbledore
