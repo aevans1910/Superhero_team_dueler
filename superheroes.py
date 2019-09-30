@@ -182,8 +182,8 @@ class Arena:
             team_one: None
             team_two: None
         '''
-        self.team1 = Team ("Team 1")
-        self.team2 = Team ("Team 2")
+        self.team1 = None
+        self.team2 = None
 
     def create_ability (self):
         '''Prompt for Ability information.
@@ -217,7 +217,52 @@ class Arena:
           return Hero with values from user input.
         '''
         new_hero = input ("Create a new hero: ")
-        pass
+        new_hero_health = input ("What is the health amount for your hero: ")
+        hero_max_health = int (new_hero_health)
+        created_hero = Hero (new_hero, hero_max_health)
+
+        new_abilities = input ("How many new abilities would you like to create for your hero?")
+        amount_of_abilities = int(new_abilities)
+        for _ in range(amount_of_abilities):
+            created_ability = self.create_ability ()
+            created_hero.add_ability(created_ability)
+
+        new_armor = input ("How mamy new armors would you like to add?")
+        amount_of_armor = int(new_armor)
+        for _ in range(amount_of_armor):
+            created_armor = self.create_armor()
+            created_hero.add_armor(created_armor)
+
+        new_weapon = input ("How many new weapons would you like to add?")
+        amount_of_weapons = int(new_weapon)
+        for _ in range(amount_of_weapons):
+            created_weapons = self.create_weapon()
+            created_hero.add_weapon(created_weapons)
+        return Hero (new_hero, hero_max_health)
+
+    def build_team_one(self):
+        '''Prompt the user to build team_one '''
+        create_team_one_name = input ("What is the name of your first team? ")
+        create_team_one = input ("How many heroes are in team one? ")
+        created_team_one = int(create_team_one)
+        for _ in range(created_team_one):
+            team_one_hero = self.create_hero()
+            self.team1 = create_team_one_name
+            self.team1.add_hero(team_one_hero)
+
+    def build_team_two(self):
+        '''Prompt the user to build team_one '''
+        create_team_two_name = input ("What is the name of your second team? ")
+        create_team_two = input ("How many heroes are in team two? ")
+        created_team_two = int(create_team_two)
+        for _ in range(created_team_two):
+            team_two_hero = self.create_hero()
+            self.team2 = create_team_two_name
+            self.team2.add_hero(team_two_hero)
+
+    def team_battle(self):
+        '''Battle team_one and team_two together.'''
+        
 
 if __name__ == "__main__":
     #here we are testing out a fight between Wonder Woman and Dumbledore
