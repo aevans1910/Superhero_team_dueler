@@ -293,26 +293,26 @@ class Arena:
 
 
 if __name__ == "__main__":
-    # here we are testing out a fight between Wonder Woman and Dumbledore
-    # hero1 = Hero ("Wonder Woman")
-    # hero2 = Hero ("Dumbledore")
-    # ability1 = Ability ("Super Eyes", 30)
-    # ability2 = Ability ("Super Speed", 100)
-    # ability3 = Ability ("Wizard Wand", 100)
-    # ability4 = Ability ("Wizard Beard", 200)
-    # hero1.add_ability(ability1)
-    # hero1.add_ability(ability2)
-    # hero2.add_ability(ability3)
-    # hero2.add_ability(ability4)
-    # hero1.fight(hero2)
+    game_is_running = True
 
-    # team1 = Team ("Team1")
-    # team1.add_hero(hero1)
-    # team1.add_hero(hero2)
-    # print (team1.heroes)
-    # team1.view_all_heroes()
+    # Instantiate Game Arena
     arena = Arena()
+
+    #Build Teams
     arena.build_team_one()
     arena.build_team_two()
-    arena.team_battle()
-    arena.show_stats()
+
+    while game_is_running:
+
+        arena.team_battle()
+        arena.show_stats()
+        play_again = input("Play Again? Y or N: ")
+
+        #Check for Player Input
+        if play_again.lower() == "n":
+            game_is_running = False
+
+        else:
+            #Revive heroes to play again
+            arena.team1.revive_heroes()
+            arena.team2.revive_heroes()
