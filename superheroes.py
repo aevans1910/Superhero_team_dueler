@@ -72,7 +72,7 @@ class Hero:
         total = 0
         for armor in self.armors:
             total += armor.block()
-        return abs(total - damage_amount)
+        return total
 
     def take_damage (self, damage):
         '''Updates self.current_health to reflect the damage minus the defense.
@@ -136,6 +136,8 @@ class Team:
         '''
         self.name = name
         self.heroes = []
+        self.kills = 0
+        self.deaths = 0
 
     def able_to_fight (self):
         available_heroes = []
@@ -159,8 +161,10 @@ class Team:
     def stats(self):
         '''Print team statistics'''
         for hero in  self.heroes:
-            print (hero.deaths)
-            print (hero.kills)
+            self.kills += hero.kills
+            self.deaths += hero.deaths
+            k_d_ratio = self.kills // self.deaths
+            return k_d_ratio 
 
     def add_hero (self, hero):
         self.heroes.append(hero)
@@ -245,9 +249,9 @@ class Arena:
         create_team_one_name = input ("What is the name of your first team? ")
         create_team_one = input ("How many heroes are in team one? ")
         created_team_one = int(create_team_one)
+        self.team1 = Team(create_team_one_name)
         for _ in range(created_team_one):
             team_one_hero = self.create_hero()
-            self.team1 = create_team_one_name
             self.team1.add_hero(team_one_hero)
 
     def build_team_two(self):
@@ -255,34 +259,52 @@ class Arena:
         create_team_two_name = input ("What is the name of your second team? ")
         create_team_two = input ("How many heroes are in team two? ")
         created_team_two = int(create_team_two)
+        self.team2 = Team(create_team_two_name)
         for _ in range(created_team_two):
             team_two_hero = self.create_hero()
-            self.team2 = create_team_two_name
             self.team2.add_hero(team_two_hero)
 
     def team_battle(self):
         '''Battle team_one and team_two together.'''
-        
+        self.team1.attack(self.team2)
+
+    def show_stats(self):
+        '''Prints team statistics to terminal.'''
+        print (self.team1.stats())
+        print (self.team2.stats())
+        if self.team1.stats() > self.team2.stats():
+            print ("Team 1 wins!")
+        elif self.team1.stats() < self.team2.stats():
+            print ("Team 2 wins!")
+        else:
+            print ("It's a tie!")
+
+
 
 if __name__ == "__main__":
     #here we are testing out a fight between Wonder Woman and Dumbledore
-    hero1 = Hero ("Wonder Woman")
-    hero2 = Hero ("Dumbledore")
-    ability1 = Ability ("Super Eyes", 30)
-    ability2 = Ability ("Super Speed", 100)
-    ability3 = Ability ("Wizard Wand", 100)
-    ability4 = Ability ("Wizard Beard", 200)
-    hero1.add_ability(ability1)
-    hero1.add_ability(ability2)
-    hero2.add_ability(ability3)
-    hero2.add_ability(ability4)
-    hero1.fight(hero2)
+    # hero1 = Hero ("Wonder Woman")
+    # hero2 = Hero ("Dumbledore")
+    # ability1 = Ability ("Super Eyes", 30)
+    # ability2 = Ability ("Super Speed", 100)
+    # ability3 = Ability ("Wizard Wand", 100)
+    # ability4 = Ability ("Wizard Beard", 200)
+    # hero1.add_ability(ability1)
+    # hero1.add_ability(ability2)
+    # hero2.add_ability(ability3)
+    # hero2.add_ability(ability4)
+    # hero1.fight(hero2)
 
-    team1 = Team ("Team1")
-    team1.add_hero(hero1)
-    team1.add_hero(hero2)
-    print (team1.heroes)
-    team1.view_all_heroes()
+    # team1 = Team ("Team1")
+    # team1.add_hero(hero1)
+    # team1.add_hero(hero2)
+    # print (team1.heroes)
+    # team1.view_all_heroes()
+    arena = Arena()
+    arena.build_team_one()
+    arena.build_team_two()
+    arena.team_battle()
+    arena.show_stats()
 
 
 
