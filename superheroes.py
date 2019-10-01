@@ -184,7 +184,7 @@ class Team:
 
     def view_all_heroes(self):
         for hero in self.heroes:
-            print(hero.name)
+            return(hero.name)
 
 
 class Arena:
@@ -276,8 +276,14 @@ class Arena:
 
     def show_stats(self):
         '''Prints team statistics to terminal.'''
-        print(self.team1.stats())
-        print(self.team2.stats())
+        print("Team 1 stats: " + str(self.team1.stats()))
+        print("Team 2 stats: " + str(self.team2.stats()))
+        for hero in self.team1.heroes:
+            if hero.is_alive():
+                print ("Surviving heroes in team 1 are: " + hero.name)
+        for hero in self.team2.heroes:
+            if hero.is_alive():
+                print ("Surviving heroes in team 2 are: " + hero.name)
         if self.team1.stats() > self.team2.stats():
             print("Team 1 wins!")
         elif self.team1.stats() < self.team2.stats():

@@ -1,1 +1,1 @@
-I would like to thank Ben Lafferty for helping me when I would get stuck, I would also like Jess Dahmen for explaining to me where my code is supposed to go.
+I would like to thank Ben Lafferty for helping me when I would get stuck and helping me by writting a test function for me. I would also like to thank Jess Dahmen for explaining to me where my code is supposed to go and how to get it to those next steps.
